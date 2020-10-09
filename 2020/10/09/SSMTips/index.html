@@ -6,25 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>关于SSM项目中JSTL1.2 jar包导入出现错误500的解决办法 | ZhangMan&#39;s Blog</title>
+  <title>SSMTips | ZhangMan&#39;s Blog</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="在使用SSM搭建一个Demo时发现EL表达式 &lt;c:foreach&gt;无法使用错误展示1The absolute uri: http:&#x2F;&#x2F;java.sun.com&#x2F;jsp&#x2F;jstl&#x2F;core cannot be resolved in either web.xml or the jar files deployed with this application 1 .首先确保pom.xml">
+  <meta name="description" content="SSM在使用过程中的几个注意事项路径部分在MVC项目中，第一步的问题首先是资源的路径问题，如果资源路径出问题，项目很可能搭建不起来,例如12345678一定先要注意配置文件的路径，可能的情况下ctrl+左键即可发现其到底有没有指到其正确路径	&lt;property name&#x3D;&quot;dataSource&quot; ref&#x3D;&quot;dataSource&quot; &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于SSM项目中JSTL1.2 jar包导入出现错误500的解决办法">
-<meta property="og:url" content="http://yoursite.com/2020/07/13/%E5%85%B3%E4%BA%8ESSM%E9%A1%B9%E7%9B%AE%E4%B8%ADJSTL1-2-jar%E5%8C%85%E5%AF%BC%E5%85%A5%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF500%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/index.html">
+<meta property="og:title" content="SSMTips">
+<meta property="og:url" content="http://yoursite.com/2020/10/09/SSMTips/index.html">
 <meta property="og:site_name" content="ZhangMan&#39;s Blog">
-<meta property="og:description" content="在使用SSM搭建一个Demo时发现EL表达式 &lt;c:foreach&gt;无法使用错误展示1The absolute uri: http:&#x2F;&#x2F;java.sun.com&#x2F;jsp&#x2F;jstl&#x2F;core cannot be resolved in either web.xml or the jar files deployed with this application 1 .首先确保pom.xml">
+<meta property="og:description" content="SSM在使用过程中的几个注意事项路径部分在MVC项目中，第一步的问题首先是资源的路径问题，如果资源路径出问题，项目很可能搭建不起来,例如12345678一定先要注意配置文件的路径，可能的情况下ctrl+左键即可发现其到底有没有指到其正确路径	&lt;property name&#x3D;&quot;dataSource&quot; ref&#x3D;&quot;dataSource&quot; &amp;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190726150319322.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190726150456201.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20190726150601214.png">
-<meta property="article:published_time" content="2020-07-13T11:15:41.000Z">
-<meta property="article:modified_time" content="2020-07-13T11:15:55.319Z">
+<meta property="article:published_time" content="2020-10-09T00:40:49.000Z">
+<meta property="article:modified_time" content="2020-10-09T00:53:26.652Z">
 <meta property="article:author" content="Zhang Man">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190726150319322.png">
   
     <link rel="alternative" href="/atom.xml" title="ZhangMan&#39;s Blog" type="application/atom+xml">
   
@@ -191,14 +188,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-关于SSM项目中JSTL1-2-jar包导入出现错误500的解决办法" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SSMTips" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      关于SSM项目中JSTL1.2 jar包导入出现错误500的解决办法
+      SSMTips
     </h1>
   
 
@@ -210,8 +207,8 @@
               <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
         </span>
 
-<a href="/2020/07/13/%E5%85%B3%E4%BA%8ESSM%E9%A1%B9%E7%9B%AE%E4%B8%ADJSTL1-2-jar%E5%8C%85%E5%AF%BC%E5%85%A5%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF500%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="archive-article-date">
-        <time datetime="2020-07-13T11:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
+<a href="/2020/10/09/SSMTips/" class="archive-article-date">
+        <time datetime="2020-10-09T00:40:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-09</time>
 </a>
 
   
@@ -224,7 +221,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">265字</span>
+      <span class="post-count">366字</span>
     </span>
   </span>
 
@@ -244,13 +241,10 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h2 id="在使用SSM搭建一个Demo时发现EL表达式-lt-c-foreach-gt-无法使用"><a href="#在使用SSM搭建一个Demo时发现EL表达式-lt-c-foreach-gt-无法使用" class="headerlink" title="在使用SSM搭建一个Demo时发现EL表达式 &lt;c:foreach&gt;无法使用"></a>在使用SSM搭建一个Demo时发现EL表达式 &lt;c:foreach&gt;无法使用</h2><h3 id="错误展示"><a href="#错误展示" class="headerlink" title="错误展示"></a>错误展示</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The absolute uri: http:<span class="comment">//java.sun.com/jsp/jstl/core cannot be resolved in either web.xml or the jar files deployed with this application</span></span><br></pre></td></tr></table></figure>
-<h4 id="1-首先确保pom-xml-正确的导入jstl-1-2-确保pom-xml没有其他jstl和standard配置"><a href="#1-首先确保pom-xml-正确的导入jstl-1-2-确保pom-xml没有其他jstl和standard配置" class="headerlink" title="1 .首先确保pom.xml 正确的导入jstl 1.2,确保pom.xml没有其他jstl和standard配置"></a>1 .首先确保pom.xml 正确的导入jstl 1.2,确保pom.xml没有其他jstl和standard配置</h4><h5 id="pom-xml-jstl-1-2-如下"><a href="#pom-xml-jstl-1-2-如下" class="headerlink" title="pom.xml jstl 1.2 如下"></a>pom.xml jstl 1.2 如下</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">        &lt;groupId&gt;jstl&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;jstl&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;1.2&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-<h5 id="2-在libraries目录下找到jstl-1-2-依次打开jstl-jar-下面有META-INF文件夹-找到c-tld"><a href="#2-在libraries目录下找到jstl-1-2-依次打开jstl-jar-下面有META-INF文件夹-找到c-tld" class="headerlink" title="2.在libraries目录下找到jstl 1.2 依次打开jstl.jar 下面有META-INF文件夹 找到c.tld"></a>2.在libraries目录下找到jstl 1.2 依次打开jstl.jar 下面有META-INF文件夹 找到c.tld</h5><p><img src="https://img-blog.csdnimg.cn/20190726150319322.png" alt="目录展示如下"></p>
-<h5 id="3-需要把c-tld-复制到一个文件夹（复制到一个轻易找到的目录-我放在了-web-xml-同级目录下）"><a href="#3-需要把c-tld-复制到一个文件夹（复制到一个轻易找到的目录-我放在了-web-xml-同级目录下）" class="headerlink" title="3.需要把c.tld 复制到一个文件夹（复制到一个轻易找到的目录 我放在了 web.xml 同级目录下）"></a>3.需要把c.tld 复制到一个文件夹（复制到一个轻易找到的目录 我放在了 web.xml 同级目录下）</h5><p><img src="https://img-blog.csdnimg.cn/20190726150456201.png" alt="在这里插入图片描述"></p>
-<h5 id="4-增加web-xml配置"><a href="#4-增加web-xml配置" class="headerlink" title="4. 增加web.xml配置"></a>4. 增加web.xml配置</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	&lt;!--  jstl  --&gt;</span><br><span class="line">	&lt;jsp-config&gt;</span><br><span class="line">	&lt;taglib&gt;</span><br><span class="line">		&lt;taglib-uri&gt;http:<span class="comment">//java.sun.com/jsp/jstl/core&lt;/taglib-uri&gt;</span></span><br><span class="line">		&lt;taglib-location&gt;/WEB-INF/c.tld&lt;/taglib-location&gt;</span><br><span class="line">	&lt;/taglib&gt;</span><br><span class="line">&lt;/jsp-config&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://img-blog.csdnimg.cn/20190726150601214.png" alt="在这里插入图片描述"></p>
-<h5 id="5-运行jsp页面"><a href="#5-运行jsp页面" class="headerlink" title="5.运行jsp页面"></a>5.运行jsp页面</h5><h3 id="运行成功"><a href="#运行成功" class="headerlink" title="运行成功"></a>运行成功</h3><h4 id="而jtsl的其他用法出现相同错误的时，处理办法也是相同的-例如fmt等"><a href="#而jtsl的其他用法出现相同错误的时，处理办法也是相同的-例如fmt等" class="headerlink" title="而jtsl的其他用法出现相同错误的时，处理办法也是相同的  例如fmt等"></a>而jtsl的其他用法出现相同错误的时，处理办法也是相同的  例如fmt等</h4>
+    <h1 id="SSM在使用过程中的几个注意事项"><a href="#SSM在使用过程中的几个注意事项" class="headerlink" title="SSM在使用过程中的几个注意事项"></a>SSM在使用过程中的几个注意事项</h1><h2 id="路径部分"><a href="#路径部分" class="headerlink" title="路径部分"></a>路径部分</h2><pre><code>在MVC项目中，第一步的问题首先是资源的路径问题，如果资源路径出问题，项目很可能搭建不起来,例如</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一定先要注意配置文件的路径，可能的情况下ctrl+左键即可发现其到底有没有指到其正确路径</span><br><span class="line">	&lt;property name&#x3D;&quot;dataSource&quot; ref&#x3D;&quot;dataSource&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 配置MyBaties全局配置文件:mybatis-config.xml --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;configLocation&quot; value&#x3D;&quot;classpath:mybatis-config.xml&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 扫描entity包 使用别名 --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;typeAliasesPackage&quot; value&#x3D;&quot;cn.edu.imufe.entity&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 扫描sql配置文件:mapper需要的xml文件 --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;mapperLocations&quot; value&#x3D;&quot;classpath:mapper&#x2F;*.xml&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<pre><code>绝对路径与相对路径一直都是项目的疑难杂症，首先解决了这些，我们就可以进行下一个问题</code></pre><h2 id="AutoWired-自动注入"><a href="#AutoWired-自动注入" class="headerlink" title="AutoWired 自动注入"></a>AutoWired 自动注入</h2><pre><code>如果发现无法自动注入，首先就需要看是否出现了new 这个关键字，因为使用new之后Spring就不会接管这个对象，基本会出现nullexception这类的情况</code></pre><h2 id="Controller层代码编写"><a href="#Controller层代码编写" class="headerlink" title="Controller层代码编写"></a>Controller层代码编写</h2><pre><code>注解不能少
+- 函数部分 RespondsBody(Json格式的转换)RequestMapping(路径问题)
+- 对象     AutoWired</code></pre><h2 id="Mapper文件的问题"><a href="#Mapper文件的问题" class="headerlink" title="Mapper文件的问题"></a>Mapper文件的问题</h2><pre><code>之前出现过，忘记修改了，之后基本没记对应笔记，后面出现情况再继续补充</code></pre>
     
 
     
@@ -296,7 +290,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="http://yoursite.com/2020/07/13/关于SSM项目中JSTL1-2-jar包导入出现错误500的解决办法/" title="关于SSM项目中JSTL1.2 jar包导入出现错误500的解决办法" target="_blank">http://yoursite.com/2020/07/13/关于SSM项目中JSTL1-2-jar包导入出现错误500的解决办法/</a>
+          <a href="http://yoursite.com/2020/10/09/SSMTips/" title="SSMTips" target="_blank">http://yoursite.com/2020/10/09/SSMTips/</a>
         </li>
         
         <li>
@@ -313,6 +307,17 @@
   <div class="article-info article-info-index">
     
     
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
     
 
     
@@ -363,7 +368,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/13/%E5%85%B3%E4%BA%8ESSM%E9%A1%B9%E7%9B%AE%E4%B8%ADJSTL1-2-jar%E5%8C%85%E5%AF%BC%E5%85%A5%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF500%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/09/SSMTips/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -378,18 +383,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2020/07/13/equals%E4%B8%8E==%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          equals与&#39;==&#39;的区别
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2020/07/13/equals%E4%B8%8E==%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">equals与&#39;==&#39;的区别</div>
       <i class="icon-circle-right"></i>
     </a>
   
