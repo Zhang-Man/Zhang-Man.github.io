@@ -190,6 +190,416 @@
             
 
   
+    <article id="post-SpringBoot01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/07/13/SpringBoot01/" target="_blank">SpringBoot学习笔记01</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/07/13/SpringBoot01/" class="archive-article-date">
+        <time datetime="2021-07-13T11:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h1><h2 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h2><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><ul>
+<li><p>Spring-boot-dependecies:核心依赖在父工程！</p>
+</li>
+<li><p>我们在写或者引入一些SpringBoot依赖的时候，不需要指定版本，就因为有这些版本仓库</p>
+<h3 id="启动器"><a href="#启动器" class="headerlink" title="启动器"></a>启动器</h3></li>
+<li><pre><code class="xml">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="comment"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line">- 上面即使SpringBoot的启动场景</span><br><span class="line"></span><br><span class="line">- Spring-boot-starter-web 就会帮助我们导入web环境所有的依赖</span><br><span class="line"></span><br><span class="line">     ### 主程序</span><br><span class="line"></span><br><span class="line">     &#96;&#96;&#96;java</span><br><span class="line">     - 标准这个类是一个SpringBoot的应用</span><br><span class="line">       @SpringBootApplication</span><br><span class="line">       public class Springboot01HelloworldApplication &#123;</span><br><span class="line">         public static void main(String[] args) &#123;</span><br><span class="line">             SpringApplication.run(Springboot01HelloworldApplication.class, args);</span><br><span class="line">         &#125;</span><br><span class="line">     </span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></span></code></pre>
+</li>
+<li><p>注解</p>
+<ul>
+<li><pre><code class="java"><span class="meta">@SpringBootConfiguration</span>:SpringBoot配置
+    <span class="meta">@Configuration</span>
+        <span class="meta">@Component</span>
+
+<span class="meta">@EnableAutoConfiguration</span>：自动装配
+    <span class="meta">@AutoConfigurationPackage</span>：自动配置包
+        @<span class="meta">@Import</span>({Registrar<span class="class">.<span class="keyword">class</span>})：自动配置‘包注册’</span>
+<span class="class">    @<span class="title">Import</span>(</span>{AutoConfigurationImportSelector<span class="class">.<span class="keyword">class</span>})：自动配置导入选择</span>
+<span class="class">//获取所有的配置 </span>
+<span class="class"><span class="title">List</span>&lt;<span class="title">String</span>&gt; <span class="title">getCandidateConfigurations</span>(<span class="title">AnnotationMetadata</span> <span class="title">metadata</span>, <span class="title">AnnotationAttributes</span> <span class="title">attributes</span>)</span>
+<span class="class"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 获取取候选的配置 </span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line"> List&lt;String&gt; configurations &#x3D; SpringFactoriesLoader.loadFactoryNames(this.getSpringFactoriesLoaderFactoryClass(), this.getBeanClassLoader());</span><br></pre></td></tr></table></figure></span></code></pre>
+</li>
+<li><pre><code class="java">META-INF/spring.factories 
+    Properties properties=PropertiesLoaderutil.loadProperties(resource)</code></pre>
+<h4 id="结论-：Spring-boo所有自动配置都是在启动的时候扫描并加载：Spring-factories-所有的自动配置类都在这里面-，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功"><a href="#结论-：Spring-boo所有自动配置都是在启动的时候扫描并加载：Spring-factories-所有的自动配置类都在这里面-，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功" class="headerlink" title="结论 ：Spring boo所有自动配置都是在启动的时候扫描并加载：Spring.factories 所有的自动配置类都在这里面 ，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功"></a>结论 ：Spring boo所有自动配置都是在启动的时候扫描并加载：Spring.factories 所有的自动配置类都在这里面 ，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功</h4><ol>
+<li>springboot在启动的时候，从类路径下/META-INF/spring.factories 获取指定的值；</li>
+<li>将这些自动配置的类导入容器，自动配置就会生效 </li>
+<li>以前我们需要自动装配的东西，现在springboot都帮我们做</li>
+<li>整个JAVAEE，解决方案和自动配置的东西都在spring-boot-autoconfigure包下 </li>
+<li>根据类名，这些组件的容器就会被添加进容器</li>
+<li>容器中也会存在非常多的xxxAutoConfigurationd的文件（@Bean)，就是这些类给容器中导了这个场景需要的所有组件并自动配置 ，@Configuration</li>
+<li>有了自动配置就免去了手动编写的繁琐</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/07/13/SpringBoot01/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-spring mybatis补充笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/01/21/spring%20mybatis%E8%A1%A5%E5%85%85%E7%AC%94%E8%AE%B0/" target="_blank">mybatis Result配置对应Map</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/01/21/spring%20mybatis%E8%A1%A5%E5%85%85%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <time datetime="2021-01-21T04:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-21</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="Spring-Mybatis补充笔记"><a href="#Spring-Mybatis补充笔记" class="headerlink" title="Spring Mybatis补充笔记"></a>Spring Mybatis补充笔记</h1><h2 id="关于实体类属性与数据库表属性对应问题"><a href="#关于实体类属性与数据库表属性对应问题" class="headerlink" title="关于实体类属性与数据库表属性对应问题"></a>关于实体类属性与数据库表属性对应问题</h2><ul>
+<li>resultMap来进行控制，可以将实体类的属性名字在resultMap中与数据库表的属性一一对应，那么Spring的自动注入与Mybatis结合后就能正确的匹配好对象，如果没有resultMap来控制匹配问题，那么进行自动注入时就会出现问题</li>
+<li>开启驼峰转换的情况下 ，自动转换大小写 ，最终还是回归到resultMap下来进行匹配控制</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/01/21/spring%20mybatis%E8%A1%A5%E5%85%85%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Vue学习笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/01/13/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_blank">Vue初步学习笔记</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/01/13/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+        <time datetime="2021-01-13T11:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="Vue学习笔记"><a href="#Vue学习笔记" class="headerlink" title="Vue学习笔记"></a>Vue学习笔记</h1><ul>
+<li>Soc:</li>
+<li>HTML+CSS(可使用编程化语言来进行编写)+JS：视图 ：给用户看</li>
+<li>网络通信：axois或者使用Jquery提供的Ajax来进行通信</li>
+<li>页面跳转：vue-router</li>
+<li>状态管理：vuex</li>
+<li>虚拟Dom:利用内存提升渲染率，即时编写即时编译</li>
+<li>VUE-UI框架: ICE Iview(偏向移动端) ElementUI(Web端) vue-element-admin(此笔记基于这个学习)</li>
+<li>MVVM数据绑定,双向绑定，前端控制台同样可以改变前端内容,Vue不改变Dom元素，只改变里面的值,”h标签代表着基本类型 标签内容相当于变量”，基本类型可以变，内容也能变,&lt;数据变化视图变化</br>视图变化数据变化<ul>
+<li>低耦合：View可已独立于Model变化和修改，一个ViewModel可以绑定到不同的View上，当View变化的时候Model可以不变，当Model变化式View也可以不变</li>
+<li>可复用：多个View重复视图逻辑</li>
+<li>独立开发：可单独针对ViewModel进行测试<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2></li>
+</ul>
+</li>
+<li>指令是带有 v- 前缀的特殊属性<ul>
+<li>用于绑定数据和元素属性 v-bind:xxxx=””</li>
+<li>条件渲染 v-if=””/v-else-if/v-else </li>
+<li>列表渲染 v-for=”item in items” </li>
+<li>事件绑定 v-on:”触发监听事件(click/hover等)”=”函数名称”，如果表达式的初始值未能匹配任何选项，select会被渲染成”未选中”.</li>
+<li>表单输入绑定 v-model 可以绑定到所有的表单<h2 id="自定义组件"><a href="#自定义组件" class="headerlink" title="自定义组件"></a>自定义组件</h2></li>
+</ul>
+</li>
+<li>props是自定义组件的属性</li>
+<li>template设置模板来生成</li>
+<li>组件也是view ，也可以进行双向绑定<h2 id="七大属性"><a href="#七大属性" class="headerlink" title="七大属性"></a>七大属性</h2></li>
+<li>el</li>
+<li>methods</li>
+<li>data</li>
+<li>template</li>
+<li>render</li>
+<li>computed</li>
+<li>watch<h2 id="Axios"><a href="#Axios" class="headerlink" title="Axios"></a>Axios</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data()&#123;</span><br><span class="line">  &#x2F;&#x2F;对象可以直接定义为null也可以传回来对象，但是console会报无法找到属性的错误</span><br><span class="line">  建议直接把data的内容同json传输回来的内容定义为相同的对象，则不会出现问题</span><br><span class="line">  第一种定义 ：</span><br><span class="line">  info:&#123;</span><br><span class="line">    name:null,</span><br><span class="line">    adress:null,</span><br><span class="line">  &#125;</span><br><span class="line">  第二种定义：</span><br><span class="line">  info:null </span><br><span class="line">  两种都能传输，只不过第二种会报错</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/01/13/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Kotlin学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/01/07/Kotlin%E5%AD%A6%E4%B9%A0/" target="_blank">Kotlin学习</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/01/07/Kotlin%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+        <time datetime="2021-01-07T11:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-07</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="Kotlin学习"><a href="#Kotlin学习" class="headerlink" title="Kotlin学习"></a>Kotlin学习</h1><h2 id="常见符号"><a href="#常见符号" class="headerlink" title="常见符号"></a>常见符号</h2><ul>
+<li>? 加在变量名后，系统不会在任何情况下报空指针异常</li>
+<li>!! 会对对象进行非空判断，如果对象为null，系统一定会报异常</li>
+</ul>
+<h2 id="Lambda表达式学习"><a href="#Lambda表达式学习" class="headerlink" title="Lambda表达式学习"></a>Lambda表达式学习</h2><pre><code>- 表达式总是被大括号括着 {操作代码}
+- 参数在&apos;-&gt;&apos;前声明
+- 函数体在&apos;-&gt;&apos;后声明
+- 语法如下</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    1. 无参数的情况 ：</span><br><span class="line">语法：val&#x2F;var 变量名 &#x3D; &#123; 操作的代码 &#125;</span><br><span class="line">实例:</span><br><span class="line">    var test&#x3D;&#123;println(&quot;hello world&quot;)&#125;</span><br><span class="line">    test()</span><br><span class="line">    输出结果：hello world</span><br><span class="line"></span><br><span class="line">    2. 有参数的情况</span><br><span class="line">    val&#x2F;var 变量名 : (参数的类型，参数类型，...) -&gt; 返回值类型 &#x3D; &#123;参数1，参数2，... -&gt; 操作参数的代码 &#125;</span><br></pre></td></tr></table></figure>
+<pre><code>//普通形式
+fun test(a : Int , b : Int) : Int{
+    return a + b
+}
+// lambda
+val test : (Int , Int) -&gt; Int = {a , b -&gt; a + b}
+// 或者
+val test = {a : Int , b : Int -&gt; a + b}
+
+// 调用
+test(3,5) =&gt; 结果为：8</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">可等价于</span><br><span class="line">&#x2F;&#x2F; 此种写法：即表达式的返回值类型会根据操作的代码自推导出来。</span><br><span class="line">val&#x2F;var 变量名 &#x3D; &#123; 参数1 ： 类型，参数2 : 类型, ... -&gt; 操作参数的代码 &#125;</span><br><span class="line"></span><br><span class="line">3. lambda表达式作为函数中的参数的时候，这里举一个例子：</span><br><span class="line">fun test(a : Int, 参数名 : (参数1 ： 类型，参数2 : 类型, ... ) -&gt; 表达式返回类型)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="条件分支"><a href="#条件分支" class="headerlink" title="条件分支"></a>条件分支</h2><h2 id="循环分支"><a href="#循环分支" class="headerlink" title="循环分支"></a>循环分支</h2><h3 id="常规循环遍历"><a href="#常规循环遍历" class="headerlink" title="常规循环遍历"></a>常规循环遍历</h3><ul>
+<li><p>for (i in 1..10) { print(i) } 输出：12345678910</p>
+</li>
+<li><p>for (i in 1 until 10) { print(i) } 输出：123456789</p>
+</li>
+<li><p>for (i in 10 downTo 0) { print(i) } 输出：109876543210</p>
+</li>
+<li><p>for (i in 1..10 step 2) { print(i) } 输出：13579</p>
+</li>
+<li><p>默认都是step 1,可以把它换成任意的step x就是一次前进x步</p>
+<h3 id="容器的遍历"><a href="#容器的遍历" class="headerlink" title="容器的遍历"></a>容器的遍历</h3></li>
+<li><p>for (item in collection) { print(item} </p>
+</li>
+<li><p>for ((key, value) in map) { print(i) } </p>
+</li>
+<li><p>collection.foreach(){代码块}</p>
+<h2 id="容器学习"><a href="#容器学习" class="headerlink" title="容器学习"></a>容器学习</h2><h2 id="输入输出学习"><a href="#输入输出学习" class="headerlink" title="输入输出学习"></a>输入输出学习</h2></li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/01/07/Kotlin%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SSMTips" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -222,7 +632,7 @@
     <h1 id="SSM在使用过程中的几个注意事项"><a href="#SSM在使用过程中的几个注意事项" class="headerlink" title="SSM在使用过程中的几个注意事项"></a>SSM在使用过程中的几个注意事项</h1><h2 id="路径部分"><a href="#路径部分" class="headerlink" title="路径部分"></a>路径部分</h2><pre><code>在MVC项目中，第一步的问题首先是资源的路径问题，如果资源路径出问题，项目很可能搭建不起来,例如</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一定先要注意配置文件的路径，可能的情况下ctrl+左键即可发现其到底有没有指到其正确路径</span><br><span class="line">	&lt;property name&#x3D;&quot;dataSource&quot; ref&#x3D;&quot;dataSource&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 配置MyBaties全局配置文件:mybatis-config.xml --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;configLocation&quot; value&#x3D;&quot;classpath:mybatis-config.xml&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 扫描entity包 使用别名 --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;typeAliasesPackage&quot; value&#x3D;&quot;cn.edu.imufe.entity&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 扫描sql配置文件:mapper需要的xml文件 --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;mapperLocations&quot; value&#x3D;&quot;classpath:mapper&#x2F;*.xml&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
 <pre><code>绝对路径与相对路径一直都是项目的疑难杂症，首先解决了这些，我们就可以进行下一个问题</code></pre><h2 id="AutoWired-自动注入"><a href="#AutoWired-自动注入" class="headerlink" title="AutoWired 自动注入"></a>AutoWired 自动注入</h2><pre><code>如果发现无法自动注入，首先就需要看是否出现了new 这个关键字，因为使用new之后Spring就不会接管这个对象，基本会出现nullexception这类的情况</code></pre><h2 id="Controller层代码编写"><a href="#Controller层代码编写" class="headerlink" title="Controller层代码编写"></a>Controller层代码编写</h2><pre><code>注解不能少
 - 函数部分 RespondsBody(Json格式的转换)RequestMapping(路径问题)
-- 对象     AutoWired</code></pre><h2 id="Mapper文件的问题"><a href="#Mapper文件的问题" class="headerlink" title="Mapper文件的问题"></a>Mapper文件的问题</h2><pre><code>之前出现过，忘记修改了，之后基本没记对应笔记，后面出现情况再继续补充</code></pre>
+- 对象     AutoWired</code></pre><h2 id="Mapper文件的问题"><a href="#Mapper文件的问题" class="headerlink" title="Mapper文件的问题"></a>Mapper文件的问题</h2><pre><code>之前出现过，忘记修改了，之后基本没记对应笔记，后面出现情况再继续补充</code></pre><h2 id="实体类的问题"><a href="#实体类的问题" class="headerlink" title="实体类的问题"></a>实体类的问题</h2><pre><code>构造函数-空构函数</code></pre>
     
 
     
@@ -437,93 +847,6 @@ String 对象是一个常量，在不使用new时，建立的对象都在一个�
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/12/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/12/hello-world/" class="archive-article-date">
-        <time datetime="2020-07-12T02:28:55.852Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-12</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/12/hello-world/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -534,7 +857,7 @@ String 对象是一个常量，在不使用new时，建立的对象都在一个�
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2020 <a href="http://yoursite.com/" target="_blank">Zhang Man</a>
+    		&copy; 2018-2021 <a href="http://yoursite.com/" target="_blank">Zhang Man</a>
     	</div>
       	<div class="footer-right">
 			

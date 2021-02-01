@@ -18,7 +18,7 @@
 <meta property="og:description" content="SSM在使用过程中的几个注意事项路径部分在MVC项目中，第一步的问题首先是资源的路径问题，如果资源路径出问题，项目很可能搭建不起来,例如12345678一定先要注意配置文件的路径，可能的情况下ctrl+左键即可发现其到底有没有指到其正确路径	&lt;property name&#x3D;&quot;dataSource&quot; ref&#x3D;&quot;dataSource&quot; &amp;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-10-09T00:40:49.000Z">
-<meta property="article:modified_time" content="2020-10-09T00:53:26.652Z">
+<meta property="article:modified_time" content="2020-10-09T01:25:12.503Z">
 <meta property="article:author" content="Zhang Man">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">366字</span>
+      <span class="post-count">380字</span>
     </span>
   </span>
 
@@ -244,7 +244,7 @@
     <h1 id="SSM在使用过程中的几个注意事项"><a href="#SSM在使用过程中的几个注意事项" class="headerlink" title="SSM在使用过程中的几个注意事项"></a>SSM在使用过程中的几个注意事项</h1><h2 id="路径部分"><a href="#路径部分" class="headerlink" title="路径部分"></a>路径部分</h2><pre><code>在MVC项目中，第一步的问题首先是资源的路径问题，如果资源路径出问题，项目很可能搭建不起来,例如</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">一定先要注意配置文件的路径，可能的情况下ctrl+左键即可发现其到底有没有指到其正确路径</span><br><span class="line">	&lt;property name&#x3D;&quot;dataSource&quot; ref&#x3D;&quot;dataSource&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 配置MyBaties全局配置文件:mybatis-config.xml --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;configLocation&quot; value&#x3D;&quot;classpath:mybatis-config.xml&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 扫描entity包 使用别名 --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;typeAliasesPackage&quot; value&#x3D;&quot;cn.edu.imufe.entity&quot; &#x2F;&gt;</span><br><span class="line">	&lt;!-- 扫描sql配置文件:mapper需要的xml文件 --&gt;</span><br><span class="line">	&lt;property name&#x3D;&quot;mapperLocations&quot; value&#x3D;&quot;classpath:mapper&#x2F;*.xml&quot; &#x2F;&gt;</span><br></pre></td></tr></table></figure>
 <pre><code>绝对路径与相对路径一直都是项目的疑难杂症，首先解决了这些，我们就可以进行下一个问题</code></pre><h2 id="AutoWired-自动注入"><a href="#AutoWired-自动注入" class="headerlink" title="AutoWired 自动注入"></a>AutoWired 自动注入</h2><pre><code>如果发现无法自动注入，首先就需要看是否出现了new 这个关键字，因为使用new之后Spring就不会接管这个对象，基本会出现nullexception这类的情况</code></pre><h2 id="Controller层代码编写"><a href="#Controller层代码编写" class="headerlink" title="Controller层代码编写"></a>Controller层代码编写</h2><pre><code>注解不能少
 - 函数部分 RespondsBody(Json格式的转换)RequestMapping(路径问题)
-- 对象     AutoWired</code></pre><h2 id="Mapper文件的问题"><a href="#Mapper文件的问题" class="headerlink" title="Mapper文件的问题"></a>Mapper文件的问题</h2><pre><code>之前出现过，忘记修改了，之后基本没记对应笔记，后面出现情况再继续补充</code></pre>
+- 对象     AutoWired</code></pre><h2 id="Mapper文件的问题"><a href="#Mapper文件的问题" class="headerlink" title="Mapper文件的问题"></a>Mapper文件的问题</h2><pre><code>之前出现过，忘记修改了，之后基本没记对应笔记，后面出现情况再继续补充</code></pre><h2 id="实体类的问题"><a href="#实体类的问题" class="headerlink" title="实体类的问题"></a>实体类的问题</h2><pre><code>构造函数-空构函数</code></pre>
     
 
     
@@ -383,6 +383,15 @@
 
 <nav id="article-nav">
   
+    <a href="/2021/01/07/Kotlin%E5%AD%A6%E4%B9%A0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Kotlin学习
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/07/13/equals%E4%B8%8E==%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">equals与&#39;==&#39;的区别</div>
@@ -428,7 +437,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018-2020 <a href="http://yoursite.com/" target="_blank">Zhang Man</a>
+    		&copy; 2018-2021 <a href="http://yoursite.com/" target="_blank">Zhang Man</a>
     	</div>
       	<div class="footer-right">
 			
