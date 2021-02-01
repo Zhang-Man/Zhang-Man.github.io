@@ -190,120 +190,6 @@
             
 
   
-    <article id="post-SpringBoot01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2021/07/13/SpringBoot01/" target="_blank">SpringBoot学习笔记01</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2021/07/13/SpringBoot01/" class="archive-article-date">
-        <time datetime="2021-07-13T11:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h1><h2 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h2><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><ul>
-<li><p>Spring-boot-dependecies:核心依赖在父工程！</p>
-</li>
-<li><p>我们在写或者引入一些SpringBoot依赖的时候，不需要指定版本，就因为有这些版本仓库</p>
-<h3 id="启动器"><a href="#启动器" class="headerlink" title="启动器"></a>启动器</h3></li>
-<li><pre><code class="xml">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
-      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
-      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
-  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
-<span class="comment"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line">- 上面即使SpringBoot的启动场景</span><br><span class="line"></span><br><span class="line">- Spring-boot-starter-web 就会帮助我们导入web环境所有的依赖</span><br><span class="line"></span><br><span class="line">     ### 主程序</span><br><span class="line"></span><br><span class="line">     &#96;&#96;&#96;java</span><br><span class="line">     - 标准这个类是一个SpringBoot的应用</span><br><span class="line">       @SpringBootApplication</span><br><span class="line">       public class Springboot01HelloworldApplication &#123;</span><br><span class="line">         public static void main(String[] args) &#123;</span><br><span class="line">             SpringApplication.run(Springboot01HelloworldApplication.class, args);</span><br><span class="line">         &#125;</span><br><span class="line">     </span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></span></code></pre>
-</li>
-<li><p>注解</p>
-<ul>
-<li><pre><code class="java"><span class="meta">@SpringBootConfiguration</span>:SpringBoot配置
-    <span class="meta">@Configuration</span>
-        <span class="meta">@Component</span>
-
-<span class="meta">@EnableAutoConfiguration</span>：自动装配
-    <span class="meta">@AutoConfigurationPackage</span>：自动配置包
-        @<span class="meta">@Import</span>({Registrar<span class="class">.<span class="keyword">class</span>})：自动配置‘包注册’</span>
-<span class="class">    @<span class="title">Import</span>(</span>{AutoConfigurationImportSelector<span class="class">.<span class="keyword">class</span>})：自动配置导入选择</span>
-<span class="class">//获取所有的配置 </span>
-<span class="class"><span class="title">List</span>&lt;<span class="title">String</span>&gt; <span class="title">getCandidateConfigurations</span>(<span class="title">AnnotationMetadata</span> <span class="title">metadata</span>, <span class="title">AnnotationAttributes</span> <span class="title">attributes</span>)</span>
-<span class="class"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 获取取候选的配置 </span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line"> List&lt;String&gt; configurations &#x3D; SpringFactoriesLoader.loadFactoryNames(this.getSpringFactoriesLoaderFactoryClass(), this.getBeanClassLoader());</span><br></pre></td></tr></table></figure></span></code></pre>
-</li>
-<li><pre><code class="java">META-INF/spring.factories 
-    Properties properties=PropertiesLoaderutil.loadProperties(resource)</code></pre>
-<h4 id="结论-：Spring-boo所有自动配置都是在启动的时候扫描并加载：Spring-factories-所有的自动配置类都在这里面-，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功"><a href="#结论-：Spring-boo所有自动配置都是在启动的时候扫描并加载：Spring-factories-所有的自动配置类都在这里面-，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功" class="headerlink" title="结论 ：Spring boo所有自动配置都是在启动的时候扫描并加载：Spring.factories 所有的自动配置类都在这里面 ，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功"></a>结论 ：Spring boo所有自动配置都是在启动的时候扫描并加载：Spring.factories 所有的自动配置类都在这里面 ，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功</h4><ol>
-<li>springboot在启动的时候，从类路径下/META-INF/spring.factories 获取指定的值；</li>
-<li>将这些自动配置的类导入容器，自动配置就会生效 </li>
-<li>以前我们需要自动装配的东西，现在springboot都帮我们做</li>
-<li>整个JAVAEE，解决方案和自动配置的东西都在spring-boot-autoconfigure包下 </li>
-<li>根据类名，这些组件的容器就会被添加进容器</li>
-<li>容器中也会存在非常多的xxxAutoConfigurationd的文件（@Bean)，就是这些类给容器中导了这个场景需要的所有组件并自动配置 ，@Configuration</li>
-<li>有了自动配置就免去了手动编写的繁琐</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2021/07/13/SpringBoot01/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-spring mybatis补充笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -460,6 +346,120 @@
     
     <p class="article-more-link">
       <a class="article-more-a" href="/2021/01/13/Vue%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringBoot01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2021/01/13/SpringBoot01/" target="_blank">SpringBoot学习笔记01</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2021/01/13/SpringBoot01/" class="archive-article-date">
+        <time datetime="2021-01-13T11:15:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <h1 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h1><h2 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h2><h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><ul>
+<li><p>Spring-boot-dependecies:核心依赖在父工程！</p>
+</li>
+<li><p>我们在写或者引入一些SpringBoot依赖的时候，不需要指定版本，就因为有这些版本仓库</p>
+<h3 id="启动器"><a href="#启动器" class="headerlink" title="启动器"></a>启动器</h3></li>
+<li><pre><code class="xml">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="comment"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">      </span><br><span class="line">- 上面即使SpringBoot的启动场景</span><br><span class="line"></span><br><span class="line">- Spring-boot-starter-web 就会帮助我们导入web环境所有的依赖</span><br><span class="line"></span><br><span class="line">     ### 主程序</span><br><span class="line"></span><br><span class="line">     &#96;&#96;&#96;java</span><br><span class="line">     - 标准这个类是一个SpringBoot的应用</span><br><span class="line">       @SpringBootApplication</span><br><span class="line">       public class Springboot01HelloworldApplication &#123;</span><br><span class="line">         public static void main(String[] args) &#123;</span><br><span class="line">             SpringApplication.run(Springboot01HelloworldApplication.class, args);</span><br><span class="line">         &#125;</span><br><span class="line">     </span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></span></code></pre>
+</li>
+<li><p>注解</p>
+<ul>
+<li><pre><code class="java"><span class="meta">@SpringBootConfiguration</span>:SpringBoot配置
+    <span class="meta">@Configuration</span>
+        <span class="meta">@Component</span>
+
+<span class="meta">@EnableAutoConfiguration</span>：自动装配
+    <span class="meta">@AutoConfigurationPackage</span>：自动配置包
+        @<span class="meta">@Import</span>({Registrar<span class="class">.<span class="keyword">class</span>})：自动配置‘包注册’</span>
+<span class="class">    @<span class="title">Import</span>(</span>{AutoConfigurationImportSelector<span class="class">.<span class="keyword">class</span>})：自动配置导入选择</span>
+<span class="class">//获取所有的配置 </span>
+<span class="class"><span class="title">List</span>&lt;<span class="title">String</span>&gt; <span class="title">getCandidateConfigurations</span>(<span class="title">AnnotationMetadata</span> <span class="title">metadata</span>, <span class="title">AnnotationAttributes</span> <span class="title">attributes</span>)</span>
+<span class="class"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 获取取候选的配置 </span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line"> List&lt;String&gt; configurations &#x3D; SpringFactoriesLoader.loadFactoryNames(this.getSpringFactoriesLoaderFactoryClass(), this.getBeanClassLoader());</span><br></pre></td></tr></table></figure></span></code></pre>
+</li>
+<li><pre><code class="java">META-INF/spring.factories 
+    Properties properties=PropertiesLoaderutil.loadProperties(resource)</code></pre>
+<h4 id="结论-：Spring-boo所有自动配置都是在启动的时候扫描并加载：Spring-factories-所有的自动配置类都在这里面-，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功"><a href="#结论-：Spring-boo所有自动配置都是在启动的时候扫描并加载：Spring-factories-所有的自动配置类都在这里面-，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功" class="headerlink" title="结论 ：Spring boo所有自动配置都是在启动的时候扫描并加载：Spring.factories 所有的自动配置类都在这里面 ，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功"></a>结论 ：Spring boo所有自动配置都是在启动的时候扫描并加载：Spring.factories 所有的自动配置类都在这里面 ，但是不一定生效，要判断条件是否成立，只要导入对应的Start，就有对应的启动器，有了启动器，我们的自动装配就会生效，然后配置成功</h4><ol>
+<li>springboot在启动的时候，从类路径下/META-INF/spring.factories 获取指定的值；</li>
+<li>将这些自动配置的类导入容器，自动配置就会生效 </li>
+<li>以前我们需要自动装配的东西，现在springboot都帮我们做</li>
+<li>整个JAVAEE，解决方案和自动配置的东西都在spring-boot-autoconfigure包下 </li>
+<li>根据类名，这些组件的容器就会被添加进容器</li>
+<li>容器中也会存在非常多的xxxAutoConfigurationd的文件（@Bean)，就是这些类给容器中导了这个场景需要的所有组件并自动配置 ，@Configuration</li>
+<li>有了自动配置就免去了手动编写的繁琐</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2021/01/13/SpringBoot01/">展开全文 >></a>
     </p>
     
 
